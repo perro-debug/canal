@@ -7,8 +7,8 @@ Una sencilla aplicación de escritorio para reproducir canales de TV online desd
 Para ejecutar esta aplicación, necesitarás:
 
 *   **Python 3.x:** Asegúrate de tener Python 3 instalado en tu sistema. Puedes descargarlo desde [python.org](https://www.python.org/).
-*   **VLC Media Player:** La aplicación VLC Media Player **debe estar instalada** en tu sistema. El reproductor utiliza libVLC, por lo que la instalación completa de VLC es necesaria. Puedes descargarlo desde [videolan.org/vlc/](https://www.videolan.org/vlc/).
-*   **Biblioteca `python-vlc`:** Esta biblioteca de Python es esencial para controlar la instancia de VLC.
+*   **VLC Media Player (la aplicación completa):** Este es un requisito **mandatorio**. La aplicación `python-vlc` interactúa directamente con las bibliotecas principales de VLC Media Player. Por lo tanto, la **aplicación completa de VLC Media Player debe estar instalada** en tu sistema, no solo un conjunto de códecs o una versión ligera. Puedes descargarlo desde el sitio oficial: [https://www.videolan.org/vlc/](https://www.videolan.org/vlc/).
+*   **Biblioteca `python-vlc`:** Esta biblioteca de Python es esencial para controlar la instancia de VLC desde Python.
 
 Opcional (para futuras funcionalidades de logos):
 *   Biblioteca `Pillow`
@@ -53,3 +53,20 @@ El formato esperado para este archivo es el estándar M3U, que consiste principa
 
 ---
 Desarrollado como un ejemplo de reproductor de video simple.
+
+## Solución de Problemas (Troubleshooting)
+
+A continuación, se presentan algunos problemas comunes y sus posibles soluciones:
+
+### Error: `FileNotFoundError: Could not find module 'libvlc.dll'` (o `libvlc.so`, `libvlc.dylib`)
+
+*   **Descripción:** Este error ocurre cuando la aplicación Python no puede encontrar las bibliotecas principales de VLC (como `libvlc.dll` en Windows, `libvlc.so` en Linux, o `libvlc.dylib` en macOS).
+*   **Causa Principal:** La biblioteca `python-vlc` no puede localizar una instalación válida de VLC Media Player en las rutas esperadas del sistema.
+
+*   **Posibles Soluciones:**
+    1.  **Verificar Instalación de VLC:** Asegúrate de que VLC Media Player (la aplicación completa) esté correctamente instalado en tu sistema. Si no lo está, descárgalo e instálalo desde el sitio oficial: [https://www.videolan.org/vlc/](https://www.videolan.org/vlc/).
+    2.  **Coincidencia de Arquitectura (Python y VLC):** Verifica que la arquitectura de tu instalación de VLC Media Player (32-bit o 64-bit) coincida con la arquitectura de tu instalación de Python. Por ejemplo, si estás usando Python 64-bit, necesitas tener instalada la versión de VLC 64-bit. Si usas Python 32-bit, necesitas VLC 32-bit. Esta es una causa común de problemas.
+    3.  **Reinstalación Completa de VLC:** Considera desinstalar VLC Media Player por completo y luego reinstalarlo. Durante la instalación, asegúrate de que todos los componentes necesarios estén seleccionados (a veces pueden aparecer como "plugins", "componentes de desarrollo", "librerías" o similar, aunque la instalación estándar suele incluir todo lo necesario).
+    4.  **(Avanzado) Variable de Entorno `PATH`:** En raras ocasiones, puede ser necesario agregar el directorio de instalación de VLC a la variable de entorno `PATH` de tu sistema.
+        *   Por ejemplo, en Windows, si VLC está instalado en `C:\Program Files\VideoLAN\VLC`, podrías agregar esta ruta al `PATH`.
+        *   Esto generalmente no es requerido, ya que la biblioteca `python-vlc` está diseñada para encontrar automáticamente las instalaciones de VLC en las ubicaciones más comunes. Procede con esta opción con precaución.
